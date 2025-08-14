@@ -1,0 +1,285 @@
+AREA CONCEPT - OSPF
+
+
+R1
+en
+config t 
+host R1
+int eth0/0
+ip add 12.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 1.1.1.1 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 12.1.1.0 0.0.0.255 area 1
+network 1.1.1.0 0.0.0.255 area 1
+do wr
+
+-------------------------------------------
+
+R2
+en
+config t
+host R2
+int eth0/0
+ip add 12.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 23.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 2.2.2.2 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 12.1.1.0 0.0.0.255 area 1
+network 23.1.1.0 0.0.0.255 area 1
+network 2.2.2.0 0.0.0.255 area 1
+do wr
+
+--------------------------------------------
+
+R3
+en
+config t
+host R3
+int eth0/0
+ip add 23.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 14.1.1.1 255.255.255.0
+no shutdown
+!
+int loop 1
+ip add 3.3.3.3 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 23.1.1.0 0.0.0.255 area 1
+network 14.1.1.0 0.0.0.255 area 0
+network 3.3.3.0 0.0.0.255 area 0
+do wr
+
+-------------------------------------------
+
+R4
+en
+config t 
+host R4
+int eth0/0
+ip add 65.1.1.2 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 4.4.4.4 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 65.1.1.0 0.0.0.255 area 2
+network 4.4.4.0 0.0.0.255 area 2
+do wr
+
+------------------------------------------
+
+R5
+en
+config t
+host R5
+int eth0/0
+ip add 45.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 65.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 5.5.5.5 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 65.1.1.0 0.0.0.255 area 2
+network 45.1.1.0 0.0.0.255 area 2
+network 5.5.5.0 0.0.0.255 area 2
+do wr
+
+----------------------------------------
+
+R6
+en
+config t
+host R6
+int eth0/0
+ip add 14.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 45.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 6.6.6.6 255.255.255.0
+no shutdown
+!
+int eth0/2
+ip add 47.1.1.1 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 45.1.1.0 0.0.0.255 area 2
+network 14.1.1.0 0.0.0.255 area 0 
+network 47.1.1.0 0.0.0.255 area 0
+network 6.6.6.0 0.0.0.255 area 0
+do wr
+
+-------------------------------------------
+
+R7
+en
+config t 
+host R7
+int eth0/0
+ip add 98.1.1.2 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 7.7.7.7 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 98.1.1.0 0.0.0.255 area 3
+network 7.7.7.0 0.0.0.255 area 3
+do wr
+
+---------------------------------------------
+
+R8
+en
+config t
+host R8
+int eth0/0
+ip add 78.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 98.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 8.8.8.8 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 98.1.1.0 0.0.0.255 area 3
+network 78.1.1.0 0.0.0.255 area 3
+network 8.8 8.0 0.0.0.255 area 3
+do wr
+
+--------------------------------------------
+
+R9
+en
+config t
+host R9
+int eth0/0
+ip add 47.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 78.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 9.9.9.9 255.255.255.0
+no shutdown
+!
+int eth0/2
+ip add 107.1.1.1 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 47.1.1.0 0.0.0.255 area 0
+network 78.1.1.0 0.0.0.255 area 3
+network 107.1.1.0 0.0.0.255 area 0
+network 9.9.9.0 0.0.0.255 area 0
+do wr
+
+-------------------------------------
+
+R10
+en
+config t 
+host R10
+int eth0/0
+ip add 121.1.1.2 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 10.10.10.10 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 121.1.1.0 0.0.0.255 area 4
+network 10.10.10.0 0.0.0.255 area 4
+do wr
+
+------------------------------------
+
+R11
+en
+config t
+host R11
+int eth0/0
+ip add 110.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 121.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 11.11.11.11 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 110.1.1.0 0.0.0.255 area 4
+network 121.1.1.0 0.0.0.255 area 4
+network 11.11.11.0 0.0.0.255 area 4
+do wr
+
+-------------------------------------------
+
+R12
+en
+config t
+host R12
+int eth0/0
+ip add 107.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/1
+ip add 110.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ip add 15.15.15.15 255.255.255.0
+no shutdown
+!
+router ospf 100
+network 107.1.1.0 0.0.0.255 area 0
+network 110.1.1.0 0.0.0.255 area 4
+network 15.15.15.0 0.0.0.255 area 0
+do wr
+
+
+
+
+
+
+
