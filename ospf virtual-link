@@ -1,0 +1,107 @@
+R1
+en
+config t
+host R1
+int eth0/1
+ip add 192.168.1.100 255.255.255.0
+no shutdown
+!
+int eth0/0
+ip add 12.1.1.1 255.255.255.0
+no shutdown
+!
+int loop1
+ ip add 1.1.1.1 255.255.255.0
+no shutdown
+!
+router ospf 100
+router-id 1.1.1.1
+network 12.1.1.0 0.0.0.255 area 0
+network 192.168.1.0 0.0.0.255 area 0
+network 1.1.1.0 0.0.0.255 area 0
+do wr
+
+///////////////////////////////////
+R2
+en
+config t
+host R2
+int eth0/1
+ip add 23.1.1.2 255.255.255.0
+no shutdown
+!
+int eth0/0
+ip add 12.1.1.2 255.255.255.0
+no shutdown
+!
+int loop1
+ ip add 2.2.2.2 255.255.255.0
+no shutdown
+!
+router ospf 100
+router-id 2.2.2.2
+network 12.1.1.0 0.0.0.255 area 0
+network 23.1.1.0 0.0.0.255 area 1
+network 2.2.2.0 0.0.0.255 area 0
+do wr
+
+virtual-link command
+config t
+router ospf 100
+are 1 virtual-link 3.3.3.3
+do wr
+
+/////////////////////////////
+R3
+en
+config t
+host R3
+int eth0/1
+ip add 34.1.1.3 255.255.255.0
+no shutdown
+!
+int eth0/0
+ip add 23.1.1.3 255.255.255.0
+no shutdown
+!
+int loop1
+ ip add 3.3.3.3 255.255.255.0
+no shutdown
+!
+router ospf 100
+router-id 3.3.3.3
+network 23.1.1.0 0.0.0.255 area 1
+network 34.1.1.0 0.0.0.255 area 2
+network 3.3.3.0 0.0.0.255 area 1
+do wr
+
+virtual-link command
+config t
+router ospf 100
+are 1 virtual-link 2.2.2.2
+do wr
+
+//////////////////////////////////
+R4
+en
+config t
+host R4
+int eth0/1
+ip add 192.168.2.100 255.255.255.0
+no shutdown
+!
+int eth0/0
+ip add 34.1.1.4 255.255.255.0
+no shutdown
+!
+int loop1
+ ip add 4.4.4.4 255.255.255.0
+no shutdown
+!
+router ospf 100
+router-id 4.4.4.4
+network 34.1.1.0 0.0.0.255 area 2
+network 192.168.2.0 0.0.0.255 area 2
+network 4.4.4.0 0.0.0.255 area 2
+do wr
+
